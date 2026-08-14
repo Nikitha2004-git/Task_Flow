@@ -108,8 +108,8 @@ ORDER BY created_at DESC;
 ## Installation
 
 ```bash
-git clone <repository-url>
-cd taskflow
+git clone https://github.com/Nikitha2004-git/Task_Flow.git
+cd Task_Flow
 ```
 
 **Backend**
@@ -151,9 +151,10 @@ VITE_API_BASE_URL=http://localhost:8000
 
 ## Running Tests
 
+```markdown
 ```bash
 cd backend
-pytest
+pytest -v
 ```
 
 Covers: empty/whitespace title rejection, title stripping, priority validation, task creation/update/delete, move-updates-column (verified against the database), 404s for missing tasks/columns/boards, priority filtering, and the task-count SQL query against known seeded data (To Do=2, In Progress=1, Done=1).
@@ -184,7 +185,7 @@ Key endpoints (full interactive docs at `/docs` once the server is running):
 ## Improvements With More Time
 
 - Drag-and-drop (kept to dropdown-based move per the assignment's phased approach)
-- Text search (query already exists in `queries.py`, not yet wired to the UI)
+- Text search by task title
 - Better accessibility (keyboard navigation, ARIA roles for modals)
 - Pagination for large boards
 - PostgreSQL for production instead of SQLite
@@ -204,6 +205,14 @@ Approximately 5-6 hours across design, backend, frontend, and testing.
 
 Writing the task-count query as a `LEFT JOIN` with `GROUP BY` at the database level (rather than fetching all tasks and counting them in Python) reinforced why relational aggregation belongs in SQL — it's simpler, faster, and scales independently of application memory.
 
-## Note on This Build
+## Testing Status
 
-This project was generated in a sandboxed environment without outbound network access, so `pip install` and `npm install` could not be run to execute the test suite or dev servers live. Every backend `.py` file was verified to compile with `python -m py_compile`, and the code was written and reviewed carefully against the FastAPI/SQLAlchemy/Pydantic v2 and React 18 APIs. Please run `pytest` and `npm run dev` locally per the Installation steps above to confirm — if anything doesn't run cleanly, it's most likely a minor version-pin mismatch in `requirements.txt`/`package.json`, easily fixed by loosening the pinned version.
+The backend test suite has been run locally with pytest.
+
+```text
+17 passed, 124 warnings in 0.53s
+```
+
+The 17 tests cover task creation and validation, task updates and deletion, moving tasks between columns, priority filtering, missing-resource handling, board retrieval, and database-level task-count and priority queries.
+
+The warnings are SQLAlchemy deprecation warnings related to `datetime.utcnow()` and do not affect the test results.
