@@ -149,13 +149,12 @@ FRONTEND_ORIGIN=http://localhost:5173
 VITE_API_BASE_URL=http://localhost:8000
 ```
 
+```markdown
 ## Running Tests
 
-```markdown
 ```bash
 cd backend
 pytest -v
-```
 
 Covers: empty/whitespace title rejection, title stripping, priority validation, task creation/update/delete, move-updates-column (verified against the database), 404s for missing tasks/columns/boards, priority filtering, and the task-count SQL query against known seeded data (To Do=2, In Progress=1, Done=1).
 
@@ -193,9 +192,27 @@ Key endpoints (full interactive docs at `/docs` once the server is running):
 - Docker Compose for one-command local setup
 - CI/CD pipeline
 
-## Deployment Notes
+## Deployment
 
-Recommended: frontend on Vercel, backend on Render/Railway/Fly.io. SQLite persistence is **not guaranteed** on ephemeral hosting — use a host with a persistent disk, or switch to PostgreSQL for production while keeping SQLite for local development. The frontend must not hard-code `http://localhost:8000`; set `VITE_API_BASE_URL` to the deployed backend URL, and set `FRONTEND_ORIGIN` on the backend to the deployed frontend URL.
+The application has been deployed successfully.
+
+**Frontend:** Vercel  
+**Backend:** Render  
+**Database:** SQLite
+
+The frontend uses the deployed backend URL through the `VITE_API_BASE_URL` environment variable.
+
+The backend uses the `FRONTEND_ORIGIN` environment variable to allow requests from the deployed frontend.
+
+> Note: SQLite is suitable for this demo/assignment deployment. For production-scale applications, PostgreSQL with persistent storage would be recommended.
+
+## Live Demo
+
+**Frontend:** [TaskFlow Live Demo](https://task-flow-beta-tan.vercel.app/)
+
+**Backend API:** [TaskFlow Backend](https://task-flow-backend1-llxs.onrender.com/api/boards/1)
+
+**API Documentation:** [FastAPI Swagger Docs](https://task-flow-backend1-llxs.onrender.com/docs)
 
 ## Time Spent
 
